@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax" xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:test="http://www.mulesoft.org/schema/mule/test" xmlns:json="http://www.mulesoft.org/schema/mule/json" version="EE-3.3.0" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/current/mule-ajax.xsd 
+http://www.mulesoft.org/schema/mule/ee/wmq http://www.mulesoft.org/schema/mule/ee/wmq/current/mule-wmq-ee.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/current/mule-stdio.xsd 
+http://www.mulesoft.org/schema/mule/test http://www.mulesoft.org/schema/mule/test/current/mule-test.xsd 
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd ">
+    <spring:beans>
+        <spring:bean id="property-placeholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <spring:property name="location" value="classpath:wmq.properties"/>
+        </spring:bean>
+    </spring:beans>
+    <wmq:connector name="wmqConnector" hostName="${wmq.host}" port="${wmq.port}" queueManager="${wmq.queue.manager}" username="${wmq.username}" password="${wmq.password}" doc:name="WMQ Connector">
+        <ee:reconnect-forever/>
+    </wmq:connector>
+    <ajax:connector name="ajaxServer" serverUrl="http://0.0.0.0:8086/services/wmqExample" resourceBase="${app.home}/docroot" disableReplyTo="true" doc:name="Ajax"/>
+    <flow name="Input" doc:name="Input">
+        <ajax:inbound-endpoint channel="/services/wmqExample/enqueue" doc:name="Ajax"/>
+        <message-properties-transformer doc:name="Message Properties">
+            <delete-message-property key="MULE_REPLYTO"/>
+        </message-properties-transformer>
+        <wmq:outbound-endpoint queue="in" connector-ref="wmqConnector" doc:name="WMQ"/>
+    </flow>
+    <flow name="MessageProcessor" doc:name="MessageProcessor">
+        <wmq:inbound-endpoint queue="in" connector-ref="wmqConnector" doc:name="WMQ">
+            <wmq:transaction action="ALWAYS_BEGIN"/>
+        </wmq:inbound-endpoint>
+        <test:component appendString=" - processed" logMessageDetails="true" waitTime="15000"></test:component>
+        <wmq:outbound-endpoint queue="out" connector-ref="wmqConnector" doc:name="WMQ">
+            <wmq:transaction action="ALWAYS_JOIN"/>
+        </wmq:outbound-endpoint>
+    </flow>
+    <flow name="Output" doc:name="Output">
+        <wmq:inbound-endpoint queue="out" connector-ref="wmqConnector" doc:name="WMQ"/>
+        <ajax:outbound-endpoint channel="/services/wmqExample/dequeue" cacheMessages="true" doc:name="Ajax"/>
+    </flow>
+</mule>

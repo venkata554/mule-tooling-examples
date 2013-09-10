@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="janet" created="Mon Apr 08 14:06:23 PDT 2013" guiVersion="3.3.2" id="1365455481440" licenseCode="CLPXDMULES37812333BY" licenseType="Commercial" modified="Mon Apr 08 14:06:23 PDT 2013" modifiedBy="janet" name="datamapper_grf" preview-file="${Project_Home}/src/test/resources/companies.csv" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{}/Account" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _type="Output" id="da00e391-6e43-4ce8-a4d5-615b8a12df0a">
+<Record fieldDelimiter="|" name="Account" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{}/Account/ParentId" containerType="SINGLE" label="ParentId" name="ParentId" type="string"/>
+<Field __sourcePath="{}/Account/Phone" containerType="SINGLE" label="Phone" name="Phone" type="string"/>
+<Field __sourcePath="{}/Account/Type" containerType="SINGLE" label="Type" name="Type" type="string"/>
+<Field __sourcePath="{}/Account/OwnerId" containerType="SINGLE" label="OwnerId" name="OwnerId" type="string"/>
+<Field __sourcePath="{}/Account/LastModifiedDate" containerType="SINGLE" label="LastModifiedDate" name="LastModifiedDate" type="date"/>
+<Field __sourcePath="{}/Account/ShippingState" containerType="SINGLE" label="ShippingState" name="ShippingState" type="string"/>
+<Field __sourcePath="{}/Account/AnnualRevenue" containerType="SINGLE" label="AnnualRevenue" name="AnnualRevenue" type="string"/>
+<Field __sourcePath="{}/Account/BillingState" containerType="SINGLE" label="BillingState" name="BillingState" type="string"/>
+<Field __sourcePath="{}/Account/LastActivityDate" containerType="SINGLE" label="LastActivityDate" name="LastActivityDate" type="date"/>
+<Field __sourcePath="{}/Account/NumberOfEmployees" containerType="SINGLE" label="NumberOfEmployees" name="NumberOfEmployees" type="number"/>
+<Field __sourcePath="{}/Account/BillingPostalCode" containerType="SINGLE" label="BillingPostalCode" name="BillingPostalCode" type="string"/>
+<Field __sourcePath="{}/Account/SystemModstamp" containerType="SINGLE" label="SystemModstamp" name="SystemModstamp" type="date"/>
+<Field __sourcePath="{}/Account/Region__c" containerType="SINGLE" label="Region__c" name="Region__c" type="string"/>
+<Field __sourcePath="{}/Account/ShippingCity" containerType="SINGLE" label="ShippingCity" name="ShippingCity" type="string"/>
+<Field __sourcePath="{}/Account/BillingCountry" containerType="SINGLE" label="BillingCountry" name="BillingCountry" type="string"/>
+<Field __sourcePath="{}/Account/Description" containerType="SINGLE" label="Description" name="Description" type="string"/>
+<Field __sourcePath="{}/Account/ShippingCountry" containerType="SINGLE" label="ShippingCountry" name="ShippingCountry" type="string"/>
+<Field __sourcePath="{}/Account/LastModifiedById" containerType="SINGLE" label="LastModifiedById" name="LastModifiedById" type="string"/>
+<Field __sourcePath="{}/Account/Website" containerType="SINGLE" label="Website" name="Website" type="string"/>
+<Field __sourcePath="{}/Account/ShippingStreet" containerType="SINGLE" label="ShippingStreet" name="ShippingStreet" type="string"/>
+<Field __sourcePath="{}/Account/Fax" containerType="SINGLE" label="Fax" name="Fax" type="string"/>
+<Field __sourcePath="{}/Account/BillingStreet" containerType="SINGLE" label="BillingStreet" name="BillingStreet" type="string"/>
+<Field __sourcePath="{}/Account/MasterRecordId" containerType="SINGLE" label="MasterRecordId" name="MasterRecordId" type="string"/>
+<Field __sourcePath="{}/Account/Name" containerType="SINGLE" label="Name" name="Name" type="string"/>
+<Field __sourcePath="{}/Account/BillingCity" containerType="SINGLE" label="BillingCity" name="BillingCity" type="string"/>
+<Field __sourcePath="{}/Account/CreatedById" containerType="SINGLE" label="CreatedById" name="CreatedById" type="string"/>
+<Field __sourcePath="{}/Account/CreatedDate" containerType="SINGLE" label="CreatedDate" name="CreatedDate" type="date"/>
+<Field __sourcePath="{}/Account/IsDeleted" containerType="SINGLE" label="IsDeleted" name="IsDeleted" type="boolean"/>
+<Field __sourcePath="{}/Account/JigsawCompanyId" containerType="SINGLE" label="JigsawCompanyId" name="JigsawCompanyId" type="string"/>
+<Field __sourcePath="{}/Account/Id" containerType="SINGLE" label="Id" name="Id" type="string"/>
+<Field __sourcePath="{}/Account/ShippingPostalCode" containerType="SINGLE" label="ShippingPostalCode" name="ShippingPostalCode" type="string"/>
+<Field __sourcePath="{}/Account/Industry" containerType="SINGLE" label="Industry" name="Industry" type="string"/>
+</Record>
+</Metadata>
+<Metadata _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _type="Input" id="80f8458b-0b2b-468c-89e6-28bc6033e8e0">
+<Record fieldDelimiter="," name="companies2" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field containerType="SINGLE" label="company_name" name="company_name" size="10" type="string"/>
+<Field containerType="SINGLE" label="company_address" name="company_address" size="10" type="string"/>
+<Field containerType="SINGLE" label="company_city" name="company_city" size="10" type="string"/>
+<Field containerType="SINGLE" label="company_state" name="company_state" size="10" type="string"/>
+<Field containerType="SINGLE" label="company_zip" name="company_zip" size="10" type="string"/>
+<Field containerType="SINGLE" eofAsDelimiter="true" label="has_given_contact_permission" name="has_given_contact_permission" size="10" type="string"/>
+<Field __artificialType="_id" auto_filling="global_row_count" name="__id" type="long"/>
+</Record>
+</Metadata>
+<Metadata _type="Lookup" id="0ab1d43c-19c9-41fd-a1c4-287e3cca16ac">
+<Record fieldDelimiter="|" name="LookUpSalesRegion" recordDelimiter="\n" type="delimited">
+<Field containerType="SINGLE" label="state" name="state" type="string"/>
+<Field containerType="SINGLE" label="region" name="region" type="string"/>
+</Record>
+</Metadata>
+<LookupTable flow-ref="LookUpSalesRegionFlow" id="LookUpSalesRegion" key="state" metadata="0ab1d43c-19c9-41fd-a1c4-287e3cca16ac" name="LookUpSalesRegion" type="muleFlowLookup">
+<attr name="lookupType"><![CDATA[FlowRef]]></attr>
+</LookupTable>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="CSV READER" guiWidth="0" guiX="20" guiY="20" id="DATA_READER0" quotedStrings="true" skipRows="1" trim="true" type="DATA_READER">
+<attr name="_data_format"><![CDATA[CSV]]></attr>
+<attr name="__dataSourceDefinition"><![CDATA[/Users/janet/Desktop/companies2.csv]]></attr>
+</Node>
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="Map&lt;k,v&gt; WRITER" guiWidth="0" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:collection clover:name="Account" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping">
+  <item clover:inPort="0">
+    <ParentId>$0.ParentId</ParentId>
+    <Phone>$0.Phone</Phone>
+    <Type>$0.Type</Type>
+    <OwnerId>$0.OwnerId</OwnerId>
+    <LastModifiedDate>$0.LastModifiedDate</LastModifiedDate>
+    <ShippingState>$0.ShippingState</ShippingState>
+    <AnnualRevenue>$0.AnnualRevenue</AnnualRevenue>
+    <BillingState>$0.BillingState</BillingState>
+    <LastActivityDate>$0.LastActivityDate</LastActivityDate>
+    <NumberOfEmployees>$0.NumberOfEmployees</NumberOfEmployees>
+    <BillingPostalCode>$0.BillingPostalCode</BillingPostalCode>
+    <SystemModstamp>$0.SystemModstamp</SystemModstamp>
+    <clover:element clover:name="Region__c">$0.Region__c</clover:element>
+    <ShippingCity>$0.ShippingCity</ShippingCity>
+    <BillingCountry>$0.BillingCountry</BillingCountry>
+    <Description>$0.Description</Description>
+    <ShippingCountry>$0.ShippingCountry</ShippingCountry>
+    <LastModifiedById>$0.LastModifiedById</LastModifiedById>
+    <Website>$0.Website</Website>
+    <ShippingStreet>$0.ShippingStreet</ShippingStreet>
+    <Fax>$0.Fax</Fax>
+    <BillingStreet>$0.BillingStreet</BillingStreet>
+    <MasterRecordId>$0.MasterRecordId</MasterRecordId>
+    <Name>$0.Name</Name>
+    <BillingCity>$0.BillingCity</BillingCity>
+    <CreatedById>$0.CreatedById</CreatedById>
+    <CreatedDate>$0.CreatedDate</CreatedDate>
+    <IsDeleted>$0.IsDeleted</IsDeleted>
+    <JigsawCompanyId>$0.JigsawCompanyId</JigsawCompanyId>
+    <Id>$0.Id</Id>
+    <ShippingPostalCode>$0.ShippingPostalCode</ShippingPostalCode>
+    <Industry>$0.Industry</Industry>
+  </item>
+</clover:collection>]]></attr>
+<attr name="__typeName"><![CDATA[Account]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+<attr name="__operationName"><![CDATA[http://www.mulesoft.org/schema/mule/sfdc/create]]></attr>
+<attr name="__connectorName"><![CDATA[Salesforce]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="Foreach 'companies2' -&gt; 'Account'" guiWidth="0" guiX="460" guiY="20" id="REFORMAT0" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = (isnull(input.__id) ? null : num2str(input.__id));
+//END -> DO NOT REMOVE
+output.Name = input.company_name;
+output.BillingStreet = input.company_address;
+output.BillingCity = input.company_city;
+output.BillingState = input.company_state;
+output.BillingPostalCode = input.company_zip;
+output.Region__c = (isnull(lookup(LookUpSalesRegion).get([input.company_state])) ? null : lookup(LookUpSalesRegion).get([input.company_state]).region);]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="DATA_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="80f8458b-0b2b-468c-89e6-28bc6033e8e0" outPort="Port 0 (output)" toNode="REFORMAT0:0"/>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="da00e391-6e43-4ce8-a4d5-615b8a12df0a" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+</Phase>
+</Graph>

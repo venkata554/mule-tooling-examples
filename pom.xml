@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>examples</groupId>
+    <artifactId>org.mule.tooling.examples</artifactId>
+    <version>3.5.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>connect-with-salesforce</module>
+        <module>datamapper-with-flowreflookup</module>
+        <module>foreach-processing-and-choice-routing</module>
+        <module>hello_world</module>
+        <module>http-request-response-with-logger</module>
+        <module>legacy-modernization</module>
+        <module>service_orchestration_and_choice_routing</module>
+        <module>soap_web_service_security</module>
+        <module>websphere_mq</module>
+        <module>xml-only_soap_web_service</module>
+    </modules>
+
+</project>

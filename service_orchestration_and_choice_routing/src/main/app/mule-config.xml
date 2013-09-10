@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax"
+	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="EE-3.4.0"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/current/mule-ajax.xsd 
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+	<ajax:connector name="ajaxServer" serverUrl="http://0.0.0.0:8090/orders"
+		resourceBase="${app.home}/docroot" doc:name="Ajax" />
+	<data-mapper:config name="JsonToXml"
+		transformationGraphPath="json_to_xml.grf" doc:name="DataMapper" />
+	<data-mapper:config name="orderSummaryToJson"
+		transformationGraphPath="ordersummarytojson_1.grf" doc:name="DataMapper" />
+	<flow name="orderRequest" doc:name="orderRequest">
+		<ajax:inbound-endpoint channel="/orders/request"
+			responseTimeout="10000" connector-ref="ajaxServer" doc:name="/orders/request" />
+		<data-mapper:transform config-ref="JsonToXml"
+			doc:name="DataMapper" />
+		<object-to-string-transformer doc:name="Object to String" />
+		<mulexml:xslt-transformer
+			maxIdleTransformers="2" maxActiveTransformers="5" xsl-file="XmlToSoapEnvelope.xsl"
+			doc:name="Xml to Soap Envelope" />
+		<object-to-string-transformer doc:name="Object to String" />
+		<http:outbound-endpoint exchange-pattern="request-response"
+			host="localhost" port="1080" path="orders" doc:name="/orders" />
+		<object-to-string-transformer doc:name="Object to String" />
+		<mulexml:xslt-transformer
+			maxIdleTransformers="2" maxActiveTransformers="5"
+			xsl-file="SoapEnvelopeToBodyChild.xslt" doc:name="Xml to Soap Envelope" />
+		<object-to-string-transformer doc:name="Object to String" />
+		<data-mapper:transform config-ref="orderSummaryToJson"
+			doc:name="Data-mapper" />
+		<object-to-string-transformer doc:name="Object to String" />
+	</flow>
+	<flow name="orderProxy" doc:name="orderProxy">
+		<ajax:inbound-endpoint channel="/orders/soap"
+			responseTimeout="10000" connector-ref="ajaxServer" doc:name="/orders/soap" />
+		<http:outbound-endpoint exchange-pattern="request-response"
+			host="localhost" port="1080" path="orders" doc:name="/orders" />
+		<object-to-string-transformer doc:name="Object to String" />
+	</flow>
+	<flow name="manufacturers" doc:name="manufacturers">
+		<ajax:inbound-endpoint channel="/orders/manufacturers"
+			responseTimeout="10000" connector-ref="ajaxServer" doc:name="/orders/manufacturers" />
+		<expression-transformer
+			expression="#['[&quot;Samsung&quot;,&quot;Philips&quot;,&quot;Sony&quot;]']"
+			doc:name="Create Manufacturers" />
+	</flow>
+</mule>
