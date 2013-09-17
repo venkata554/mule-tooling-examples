@@ -36,7 +36,7 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 			<byte-array-to-string-transformer
 				doc:name="Transform-to-String" />
 			<file:outbound-endpoint path="src/test/resources/Output"
-				outputPattern="ShippingOrder-#[function:datestamp].txt" doc:name="LegacyFulfillment" responseTimeout="10000"/>
+				outputPattern="ShippingOrder-#[server.dateTime.format('dd-MM-yy_HH-mm-ss.SSS')].txt" doc:name="LegacyFulfillment" responseTimeout="10000"/>
 		</async>
 	</flow>
 </mule>
