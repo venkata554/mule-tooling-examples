@@ -7,20 +7,20 @@
 
     <groupId>org.mule.tooling.examples</groupId>
     <artifactId>org.mule.tooling.examples</artifactId>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.5.0-M2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>connect-with-salesforce</module>
         <module>datamapper-with-flowreflookup</module>
         <module>foreach-processing-and-choice-routing</module>
-        <module>hello_world</module>
+        <module>hello-world</module>
         <module>http-request-response-with-logger</module>
         <module>legacy-modernization</module>
-        <module>service_orchestration_and_choice_routing</module>
-        <module>soap_web_service_security</module>
-        <module>websphere_mq</module>
-        <module>xml-only_soap_web_service</module>
+        <module>service-orchestration-and-choice-routing</module>
+        <module>soap-webservice-security</module>
+        <module>websphere-mq</module>
+        <module>xml-only-soap-webservice</module>
     </modules>
 
 
@@ -155,57 +155,6 @@
                     <classpathScope>compile</classpathScope>
                 </configuration>
             </plugin>
-
-            <!--Install clover-plugins-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>copy-clover-plugins</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <overWriteReleases>true</overWriteReleases>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <stripVersion>true</stripVersion>
-
-                            <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.cloveretl</groupId>
-                                    <artifactId>cloveretl-engine</artifactId>
-                                    <version>${mule.version}</version>
-                                    <type>zip</type>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <configuration>
-                            <tasks>
-                                <!-- Using an ant task to deflate cloveretl-engine.zip -->
-                                <unzip src="${project.build.testOutputDirectory}/cloveretl-engine.zip"
-                                       dest="${project.build.testOutputDirectory}"/>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -293,34 +242,10 @@
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.mulesoft.muleesb.modules</groupId>
-            <artifactId>mule-module-boot-ee</artifactId>
-            <version>${mule.version}</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Xml configuration -->
         <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-spring-config</artifactId>
-            <version>${mule.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mulesoft.muleesb</groupId>
-            <artifactId>mule-core-ee</artifactId>
-            <version>${mule.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mulesoft.muleesb.modules</groupId>
-            <artifactId>mule-module-data-mapper</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <!-- Xml configuration -->
-        <dependency>
-            <groupId>com.mulesoft.muleesb.modules</groupId>
-            <artifactId>mule-module-spring-config-ee</artifactId>
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -414,16 +339,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.cloveretl</groupId>
-            <artifactId>cloveretl-engine</artifactId>
-            <version>${mule.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>0.10</version>
-        </dependency>
+      </dependency>
     </dependencies>
 
     <repositories>
@@ -468,4 +387,17 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>mulesoft-releases</id>
+            <name>MuleSoft Repository</name>
+            <url>https://repository-master.mulesoft.org/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>mulesoft-snapshots</id>
+            <name>MuleSoft Snapshot Repository</name>
+            <url>https://repository-master.mulesoft.org/snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
