@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="">
     <name>legacy-modernization</name>
-    <description></description>
+    <description>Connects a a new HTTP order acceptance service to a legacy FTP fullfillment system.</description>
 </mule-project>
