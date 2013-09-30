@@ -34,7 +34,6 @@ public class SamsungServiceService extends Service {
  				url = resources[0].getURL();
  			}
  		} catch (IOException e) {
- 			// TODO Auto-generated catch block
  			e.printStackTrace();
  		}
         WSDL_LOCATION = url;
