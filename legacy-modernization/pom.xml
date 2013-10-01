@@ -4,11 +4,37 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>legacy-modernization</artifactId>
-	<packaging>mule</packaging>
+	<packaging>pom</packaging>
 
     <parent>
         <groupId>org.mule.tooling.examples</groupId>
         <artifactId>org.mule.tooling.examples</artifactId>
         <version>3.5.0-M2-SNAPSHOT</version>
     </parent>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>../desc.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

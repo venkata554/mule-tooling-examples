@@ -5,12 +5,14 @@
     <formats>
         <format>zip</format>
     </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
             <directory>.</directory>
             <excludes>
                 <exclude>pom.xml</exclude>
                 <exclude>*.iml</exclude>
+                <exclude>target/**</exclude>
             </excludes>
             <useDefaultExcludes>true</useDefaultExcludes>
         </fileSet>
