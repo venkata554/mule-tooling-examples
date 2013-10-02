@@ -28,11 +28,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <mule.version>3.5.0-M2-SNAPSHOT</mule.version>
+        <mule.version>3.5.0-bighorn-RC3</mule.version>
         <eclipsePluginVersion>2.8</eclipsePluginVersion>
         <jdkName>JavaSE-1.6</jdkName>
         <jdk.version>1.6</jdk.version>
-        <junit.version>4.9</junit.version>
     </properties>
 
     <build>
@@ -77,6 +76,9 @@
             </plugins>
         </pluginManagement>
         <plugins>
+
+
+
             <plugin>
                 <groupId>org.mule.tools</groupId>
                 <artifactId>maven-mule-plugin</artifactId>
@@ -95,6 +97,26 @@
                     <target>${jdk.version}</target>
                     <encoding>ISO-8859-1</encoding>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${artifactId}-${version}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>desc.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -163,8 +185,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <configLocation>http://mulesoft.org/download/attachments/92/checkstyle.xml?version=1
-                    </configLocation>
+                    <configLocation>http://mulesoft.org/download/attachments/92/checkstyle.xml?version=1</configLocation>
                 </configuration>
             </plugin>
             <plugin>
@@ -326,13 +347,18 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <version>4.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>jsr311-api</artifactId>
             <version>0.10</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>1.1</version>
       </dependency>
     </dependencies>
 
