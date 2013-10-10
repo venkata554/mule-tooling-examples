@@ -33,7 +33,7 @@
     </properties>
 
     <build>
-        <finalName>${artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>
 
         <!-- Use a newer version of the install plugin than what your Maven uses
             by default. The older version failed to install the project if there was

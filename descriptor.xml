@@ -31,6 +31,14 @@
             <outputDirectory>.</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>mappings</directory>
+            <outputDirectory>.</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>plugins</directory>
+            <outputDirectory>plugins</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>.</directory>
             <outputDirectory>META-INF</outputDirectory>
             <excludes>
@@ -38,6 +46,7 @@
                 <exclude>*.iml</exclude>
                 <exclude>target/**</exclude>
                 <exclude>src/main/app/*</exclude>
+                <exclude>plugins/</exclude>
             </excludes>
         </fileSet>
     </fileSets>
