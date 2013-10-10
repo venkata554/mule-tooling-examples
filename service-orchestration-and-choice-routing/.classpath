@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>	
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="MULE_RUNTIME"/>
+	<classpathentry kind="lib" path="lib/activemq-all-5.5.1.jar" rootpath="/"/>
+	<classpathentry kind="lib" path="lib/derby-10.8.1.2.jar" rootpath="/"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

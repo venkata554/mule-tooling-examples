@@ -11,23 +11,21 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--<module>connect-with-salesforce</module>-->
-        <!--<module>datamapper-with-flowreflookup</module>-->
+        <module>connect-with-salesforce</module>
+        <module>datamapper-with-flowreflookup</module>
         <module>foreach-processing-and-choice-routing</module>
-        <!--<module>hello-world</module>
+        <module>hello-world</module>
         <module>http-request-response-with-logger</module>
         <module>legacy-modernization</module>
         <module>service-orchestration-and-choice-routing</module>
         <module>soap-webservice-security</module>
         <module>websphere-mq</module>
-        <module>xml-only-soap-webservice</module>-->
+        <module>xml-only-soap-webservice</module>
     </modules>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <mule.version>3.5.0-bighorn-RC3</mule.version>
         <eclipsePluginVersion>2.8</eclipsePluginVersion>
         <jdkName>JavaSE-1.6</jdkName>
@@ -35,7 +33,6 @@
     </properties>
 
     <build>
-
         <finalName>${artifactId}</finalName>
 
         <!-- Use a newer version of the install plugin than what your Maven uses

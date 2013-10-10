@@ -15,4 +15,3 @@ workspace
 .idea
 timestamp.txt
 **/target/
-.classpath
