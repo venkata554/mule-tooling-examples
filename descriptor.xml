@@ -39,6 +39,10 @@
             <outputDirectory>plugins</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>lib</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>.</directory>
             <outputDirectory>META-INF</outputDirectory>
             <excludes>
@@ -47,6 +51,7 @@
                 <exclude>target/**</exclude>
                 <exclude>src/main/app/*</exclude>
                 <exclude>plugins/</exclude>
+                <exclude>lib/</exclude>
             </excludes>
         </fileSet>
     </fileSets>
