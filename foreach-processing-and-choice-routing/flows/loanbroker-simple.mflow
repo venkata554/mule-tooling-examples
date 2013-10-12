@@ -1,0 +1,1068 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="loanbroker-simple">
+    <global-unknown index="1" description="true" entity-id="global-unknown#1">
+        <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+		This Synchronous variant of loan broker example is modeled on the
+		Enterprise integration Patterns book sample.
+		See: http://www.eaipatterns.com/ComposedMessagingExample.html
+	&lt;/description&gt;</content>
+    </global-unknown>
+    <flow SubFlow="false" name="loan-broker-sync" entity-id="e309d75d-f380-45df-bb8c-00024cae99e5">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="2" name="auxiliary;index"/>
+        </properties>
+        <description>
+			The main loanbroker flow that:
+			i) Receives a customer request
+			ii) Performs a lookup of the customer credit profile using a component
+			binding
+			iii) Determines the bank that should be used to request quotes
+			iv) Sends the request to the selected banks and aggregates responses
+			v) Selects the lowest quote from the list of quotes
+			vi) Returns the response to the client
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="3" description="true" entity-id="unknown#1">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			The main loanbroker flow that:
+			i) Receives a customer request
+			ii) Performs a lookup of the customer credit profile using a component
+			binding
+			iii) Determines the bank that should be used to request quotes
+			iv) Sends the request to the selected banks and aggregates responses
+			v) Selects the lowest quote from the list of quotes
+			vi) Returns the response to the client
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://0.0.0.0:11081" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/http/body-to-parameter-map-transformer" name="Body to Parameter Map" entity-id="Body to Parameter Map#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mimeType"/>
+                    <property value="5" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <splitter index="6" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property-collection name="ec1d0f30-ef93-4bf1-b6d5-c19c469978e6">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                    <property-collection name="5f919c9b-3635-4f7a-97e2-39a5d0409a9b">
+                        <property value="!(payload['name'] == null || payload['ssn'] == null || payload['amount'] == null || payload['term']==null)" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="!(payload['name'] == null || payload['ssn'] == null || payload['amount'] == null || payload['term']==null)" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="8" hadOnlyOneElement="false" entity-id="5f919c9b-3635-4f7a-97e2-39a5d0409a9b">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="create customer request" entity-id="Expression#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;import org.mule.example.loanbroker.message.CustomerQuoteRequest;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;import org.mule.example.loanbroker.model.Customer;&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;payload = new CustomerQuoteRequest(new Customer(payload['name'],&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Integer.parseInt(payload['ssn'])),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Integer.parseInt(payload['amount']),&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Integer.parseInt(payload['term']));&#xA;&#x9;&#x9;&#x9;&#x9;" name="expression"/>
+<property name="file"/>
+<property name="evaluator"/>
+<property value="8" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Enrich with creditProfile" entity-id="Message Enricher#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="#[payload]" name="source"/>
+<property value="#[flowVars['creditProfile']]" name="target"/>
+<property value="9" name="auxiliary;index"/>
+                            </properties>
+                            <compartment entity-id="compartment#2">
+<lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+    <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="lookupCustomerCreditProfile" entity-id="Flow Reference#1">
+        <graphicalData height="0" width="0" y="0" x="0"/>
+        <properties>
+            <property value="lookupCustomerCreditProfile" name="name"/>
+            <property value="10" name="auxiliary;index"/>
+        </properties>
+    </pattern>
+</lane>
+                            </compartment>
+                        </scope>
+                        <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Enrich with banks" entity-id="Message Enricher#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="#[payload]" name="source"/>
+<property value="#[flowVars['banks']]" name="target"/>
+<property value="11" name="auxiliary;index"/>
+                            </properties>
+                            <compartment entity-id="compartment#3">
+<lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+    <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="lookupBanks" entity-id="Flow Reference#2">
+        <graphicalData height="0" width="0" y="0" x="0"/>
+        <properties>
+            <property value="lookupBanks" name="name"/>
+            <property value="12" name="auxiliary;index"/>
+        </properties>
+    </pattern>
+</lane>
+                            </compartment>
+                        </scope>
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/variable-transformer" name="create empty quotes" entity-id="Variable#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="quotes" name="variableName"/>
+<property value="#[new java.util.LinkedList()]" name="value"/>
+<property value="http://www.mulesoft.org/schema/mule/core/set-variable" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property value="13" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <scope type="http://www.mulesoft.org/schema/mule/core/foreach" name="Foreach" entity-id="For Each#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="counterVariableName"/>
+<property name="rootMessageVariableName"/>
+<property name="batchSize"/>
+<property value="#[flowVars['banks']]" name="collection"/>
+<property value="14" name="auxiliary;index"/>
+                            </properties>
+                            <compartment entity-id="compartment#4">
+<lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+    <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Message Enricher" entity-id="Message Enricher#3">
+        <graphicalData height="0" width="0" y="0" x="0"/>
+        <properties>
+            <property name="source"/>
+            <property value="#[quotes.add($)]" name="target"/>
+            <property value="15" name="auxiliary;index"/>
+        </properties>
+        <compartment entity-id="compartment#5">
+            <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+                <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="lookupLoanQuote" entity-id="Flow Reference#3">
+                    <graphicalData height="0" width="0" y="0" x="0"/>
+                    <properties>
+                        <property value="lookupLoanQuote" name="name"/>
+                        <property value="16" name="auxiliary;index"/>
+                    </properties>
+                </pattern>
+            </lane>
+        </compartment>
+    </scope>
+</lane>
+                            </compartment>
+                        </scope>
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="findLowestLoanQuote" entity-id="Flow Reference#4">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="findLowestLoanQuote" name="name"/>
+<property value="17" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/object-to-string-transformer" name="Object to String" entity-id="Object to String#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property name="mimeType"/>
+<property value="18" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="true" index="20" hadOnlyOneElement="false" entity-id="ec1d0f30-ef93-4bf1-b6d5-c19c469978e6">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="set error message" entity-id="Expression#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="payload=&quot;Error:&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;incomplete request&quot;" name="expression"/>
+<property name="file"/>
+<property name="evaluator"/>
+<property value="20" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+            <scope type="http://www.mulesoft.org/schema/mule/core/catch-exception-strategy" name="Catch Exception Strategy" entity-id="Catch Exception Strategy#1">
+                <properties>
+                    <property name="labelConfigureConditionalExecutionUsingExpression"/>
+                    <property name="when"/>
+                    <property name="enableNotifications"/>
+                    <property value="21" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#6">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/set-payload" name="Set error message" entity-id="Set Payload#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="Error processing loan request" name="value"/>
+<property value="22" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="lookupCustomerCreditProfile" entity-id="93079d6e-ee2d-4dde-8c84-fd454b5183e3">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="23" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Returns the customer credit profile obtained form the Credit Agency
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="24" description="true" entity-id="unknown#2">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Returns the customer credit profile obtained form the Credit Agency
+		&lt;/description&gt;</content>
+            </unknown>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/set-payload" name="customer" entity-id="Set Payload#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="#[payload.customer]" name="value"/>
+                    <property value="25" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="http://www.mulesoft.org/schema/mule/core/processor-chain" name="Processor Chain" entity-id="Processor Chain#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="26" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#7">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#8">
+                        <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="getCreditProfile" entity-id="SOAP#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="wsdlLocation"/>
+<property name="port"/>
+<property value="org.mule.example.loanbroker.creditagency.CreditAgencyService" name="serviceClass"/>
+<property value="getCreditProfile" name="operation"/>
+<property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property name="mtomEnabled"/>
+<property name="enableMuleSoapHeaders"/>
+<property name="clientClass"/>
+<property name="configuration-ref"/>
+<property name="decoupledEndpoint"/>
+<property value="27" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="port"/>
+<property name="host"/>
+<property name="businessEventsLabel"/>
+<property name="followRedirects"/>
+<property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property name="keep-alive"/>
+<property name="contentType"/>
+<property name="disableTransportTransformer"/>
+<property name="password"/>
+<property name="exchange-pattern"/>
+<property name="tracking:enable-default-events"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="httpLabel"/>
+<property value="http://localhost:18080/mule/TheCreditAgencyService" name="address"/>
+<property name="path"/>
+<property name="encoding"/>
+<property name="responseTransformer-refs"/>
+<property name="method"/>
+<property name="user"/>
+<property name="responseTimeout"/>
+<property name="mimeType"/>
+<property value="28" name="auxiliary;index"/>
+<property name="connector-ref"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="creditProfile" entity-id="Logger#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="Credit profile: #[payload]" name="message"/>
+                    <property name="category"/>
+                    <property value="INFO" name="level"/>
+                    <property value="29" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="lookupBanks" entity-id="e453cce5-d865-409a-843e-bc18b87b7279">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="30" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Returns the list of banks to contact and returns it as a flow variable
+			'banks'
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#9">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="31" description="true" entity-id="unknown#3">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Returns the list of banks to contact and returns it as a flow variable
+			'banks'
+		&lt;/description&gt;</content>
+            </unknown>
+            <splitter index="32" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property-collection name="0e3eca9e-ebfa-4af4-b4ca-97438d922b89">
+                        <property value="payload.getLoanAmount() &gt;= 10000 || payload.getLoanAmount() &lt;= 19999" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="payload.getLoanAmount() &gt;= 10000 || payload.getLoanAmount() &lt;= 19999" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="74c29e65-6176-4c08-9851-bd5b0adac901">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                    <property-collection name="b8821e6e-8c63-426e-bc18-fcecc703774f">
+                        <property value="payload.getLoanAmount() &gt;= 20000" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="payload.getLoanAmount() &gt;= 20000" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#4"/>
+                <compartment entity-id="compartment#8">
+                    <lane isChoiceOtherwiseLane="false" index="34" hadOnlyOneElement="false" entity-id="b8821e6e-8c63-426e-bc18-fcecc703774f">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="Bank1, Bank2" entity-id="Expression#3">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="payload=[new&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;java.net.URI('http://localhost:10080/mule/TheBank1'), new&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;java.net.URI('http://localhost:20080/mule/TheBank2')]" name="expression"/>
+<property name="file"/>
+<property name="evaluator"/>
+<property value="34" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="36" hadOnlyOneElement="false" entity-id="0e3eca9e-ebfa-4af4-b4ca-97438d922b89">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="Bank3, Bank4" entity-id="Expression#4">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="payload=[new&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;java.net.URI('http://localhost:30080/mule/TheBank3'), new&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;java.net.URI('http://localhost:40080/mule/TheBank4')]" name="expression"/>
+<property name="file"/>
+<property name="evaluator"/>
+<property value="36" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="true" index="38" hadOnlyOneElement="false" entity-id="74c29e65-6176-4c08-9851-bd5b0adac901">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="Bank5" entity-id="Expression#5">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="payload=[new&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;java.net.URI('http://localhost:50080/mule/TheBank5')]" name="expression"/>
+<property name="file"/>
+<property name="evaluator"/>
+<property value="38" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="banks" entity-id="Logger#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="Banks to contact: #[payload]" name="message"/>
+                    <property name="category"/>
+                    <property value="INFO" name="level"/>
+                    <property value="39" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="lookupLoanQuote" entity-id="62c4c2b6-879f-4cf2-9d4e-1a9672e844e2">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="40" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Returns a loanQuote from a given bank's URI
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#10">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="41" description="true" entity-id="unknown#4">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Returns a loanQuote from a given bank's URI
+		&lt;/description&gt;</content>
+            </unknown>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/variable-transformer" name="bankUri" entity-id="Variable#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="bankUri" name="variableName"/>
+                    <property value="#[payload]" name="value"/>
+                    <property value="http://www.mulesoft.org/schema/mule/core/set-variable" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="42" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="create LoanBrokerLoanRequest" entity-id="Expression#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="&#xA;&#x9;&#x9;&#x9;import org.mule.example.loanbroker.message.LoanBrokerQuoteRequest;&#xA;&#xA;&#x9;&#x9;&#x9;LoanBrokerQuoteRequest bqr = new LoanBrokerQuoteRequest();&#xA;&#x9;&#x9;&#x9;bqr.setCreditProfile(flowVars['creditProfile']);&#xA;&#x9;&#x9;&#x9;payload = bqr;&#xA;&#x9;&#x9;" name="expression"/>
+                    <property name="file"/>
+                    <property name="evaluator"/>
+                    <property value="43" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="http://www.mulesoft.org/schema/mule/core/processor-chain" name="Processor Chain" entity-id="Processor Chain#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="44" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#9">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#11">
+                        <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="getLoanQuote" entity-id="SOAP#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="wsdlLocation"/>
+<property name="port"/>
+<property value="org.mule.example.loanbroker.bank.BankService" name="serviceClass"/>
+<property value="getLoanQuote" name="operation"/>
+<property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property name="mtomEnabled"/>
+<property name="enableMuleSoapHeaders"/>
+<property name="clientClass"/>
+<property name="configuration-ref"/>
+<property name="decoupledEndpoint"/>
+<property value="45" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#3">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property name="port"/>
+<property name="host"/>
+<property name="businessEventsLabel"/>
+<property name="followRedirects"/>
+<property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property name="keep-alive"/>
+<property name="contentType"/>
+<property name="disableTransportTransformer"/>
+<property name="password"/>
+<property name="exchange-pattern"/>
+<property name="tracking:enable-default-events"/>
+<property name="ref"/>
+<property name="transformer-refs"/>
+<property name="httpLabel"/>
+<property value="http://#[flowVars['bankUri'].getHost()]:#[flowVars['bankUri'].getPort()]#[flowVars['bankUri'].getPath()]" name="address"/>
+<property name="path"/>
+<property name="encoding"/>
+<property name="responseTransformer-refs"/>
+<property name="method"/>
+<property name="user"/>
+<property name="responseTimeout"/>
+<property name="mimeType"/>
+<property value="46" name="auxiliary;index"/>
+<property name="connector-ref"/>
+                            </properties>
+                        </endpoint>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="quote" entity-id="Logger#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="LoanQuote from #[flowVars['bankUri']]: #[payload]" name="message"/>
+                    <property name="category"/>
+                    <property value="INFO" name="level"/>
+                    <property value="47" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="findLowestLoanQuote" entity-id="6a30fc42-4bd1-4831-b6bc-f06e7ce9f5f4">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="48" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Returns the loan quote with the lowest interest rate
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#12">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="49" description="true" entity-id="unknown#5">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Returns the loan quote with the lowest interest rate
+		&lt;/description&gt;</content>
+            </unknown>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/expression-component" name="Expression" entity-id="Expression#7">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="&#xA;            &#xA;            import org.mule.example.loanbroker.model.LoanQuote;&#xA;&#xA;            LoanQuote lowestQuote = null;&#xA;&#xA;            for (Object current : (List) flowVars['quotes'])&#xA;            {&#xA;                LoanQuote loanQuote = (LoanQuote) current;&#xA;                if (lowestQuote == null)&#xA;                {&#xA;                    lowestQuote = loanQuote;&#xA;                }&#xA;                else if (loanQuote.getInterestRate() &lt; lowestQuote.getInterestRate())&#xA;                {&#xA;                    lowestQuote = loanQuote;&#xA;                }&#xA;            }&#xA;&#xA;            payload = lowestQuote;&#xA;            &#xA;&#x9;&#x9;" name="expression"/>
+                    <property name="file"/>
+                    <property name="evaluator"/>
+                    <property value="50" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="lowestQuote" entity-id="Logger#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="Lowest loan quote: #[payload]" name="message"/>
+                    <property name="category"/>
+                    <property value="INFO" name="level"/>
+                    <property value="51" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="TheCreditAgencyService" entity-id="4c93a015-0afd-43fa-abf6-44ca96316752">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="52" name="auxiliary;index"/>
+        </properties>
+        <description>
+			The credit agency service will get the credit profile for a customer
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#13">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="53" description="true" entity-id="unknown#6">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			The credit agency service will get the credit profile for a customer
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:18080/mule/TheCreditAgencyService" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="54" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.creditagency.DefaultCreditAgency" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="55" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="creditAgency" entity-id="Java#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="56" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.creditagency.DefaultCreditAgency" name="class"/>
+                        <property value="57" name="auxiliary;index"/>
+                        <property value="57" name="auxiliary;wrapIn"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="Bank1Flow" entity-id="feb6f5d9-a00a-4914-9b48-542fa32944a3">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="58" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Mock flow representing Bank 1
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#14">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="59" description="true" entity-id="unknown#7">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Mock flow representing Bank 1
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#5">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:10080/mule/TheBank1" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="60" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.bank.Bank" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="61" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Bank 1" entity-id="Java#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.bank.Bank" name="class"/>
+                        <property value="63" name="auxiliary;index"/>
+                        <property value="63" name="auxiliary;wrapIn"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/core/property;1">
+                            <property value="Bank #1" name="value"/>
+                            <property value="bankName" name="key"/>
+                            <property value="64" name="auxiliary;index"/>
+                            <property value="64" name="auxiliary;wrapIn"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="Bank2Flow" entity-id="42066a80-69e1-491f-8a00-b367f8938835">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="65" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Mock flow representing Bank 2
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#15">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="66" description="true" entity-id="unknown#8">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Mock flow representing Bank 2
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:20080/mule/TheBank2" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#5">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.bank.Bank" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="68" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Bank 2" entity-id="Java#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.bank.Bank" name="class"/>
+                        <property value="70" name="auxiliary;index"/>
+                        <property value="70" name="auxiliary;wrapIn"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/core/property;1">
+                            <property value="Bank #2" name="value"/>
+                            <property value="bankName" name="key"/>
+                            <property value="71" name="auxiliary;index"/>
+                            <property value="71" name="auxiliary;wrapIn"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="Bank3Flow" entity-id="7d15a0cd-8439-468f-8052-62e10a561fbc">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="72" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Mock flow representing Bank 3
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#16">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="73" description="true" entity-id="unknown#9">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Mock flow representing Bank 3
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#7">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:30080/mule/TheBank3" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.bank.Bank" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="75" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Bank 3" entity-id="Java#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.bank.Bank" name="class"/>
+                        <property value="77" name="auxiliary;index"/>
+                        <property value="77" name="auxiliary;wrapIn"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/core/property;1">
+                            <property value="Bank #3" name="value"/>
+                            <property value="bankName" name="key"/>
+                            <property value="78" name="auxiliary;index"/>
+                            <property value="78" name="auxiliary;wrapIn"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="Bank4Flow" entity-id="116246c8-99bb-4dc2-8504-9ed7ea3dd6a7">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="79" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Mock flow representing Bank 4
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#17">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="80" description="true" entity-id="unknown#10">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Mock flow representing Bank 4
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#8">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:40080/mule/TheBank4" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#7">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.bank.Bank" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="82" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Bank 4" entity-id="Java#5">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.bank.Bank" name="class"/>
+                        <property value="84" name="auxiliary;index"/>
+                        <property value="84" name="auxiliary;wrapIn"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/core/property;1">
+                            <property value="Bank #4" name="value"/>
+                            <property value="bankName" name="key"/>
+                            <property value="85" name="auxiliary;index"/>
+                            <property value="85" name="auxiliary;wrapIn"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="Bank5Flow" entity-id="613404c7-d02f-4bd8-b18b-fe69850cb915">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="86" name="auxiliary;index"/>
+        </properties>
+        <description>
+			Mock flow representing Bank 5
+		</description>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#18">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <unknown index="87" description="true" entity-id="unknown#11">
+                <content>&lt;description xmlns=&quot;http://www.mulesoft.org/schema/mule/core&quot;&gt;
+			Mock flow representing Bank 5
+		&lt;/description&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#9">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="host"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property value="http://localhost:50080/mule/TheBank5" name="address"/>
+                    <property name="path"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#8">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="port"/>
+                    <property name="wsdlLocation"/>
+                    <property value="org.mule.example.loanbroker.bank.Bank" name="serviceClass"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property name="namespace"/>
+                    <property name="validationEnabled"/>
+                    <property name="bindingId"/>
+                    <property name="onException"/>
+                    <property name="service"/>
+                    <property name="mtomEnabled"/>
+                    <property name="soapVersion"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="89" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Bank 5" entity-id="Java#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="class"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/singleton-object;0">
+                        <property value="org.mule.example.loanbroker.bank.Bank" name="class"/>
+                        <property value="91" name="auxiliary;index"/>
+                        <property value="91" name="auxiliary;wrapIn"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/core/property;1">
+                            <property value="Bank #5" name="value"/>
+                            <property value="bankName" name="key"/>
+                            <property value="92" name="auxiliary;index"/>
+                            <property value="92" name="auxiliary;wrapIn"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+</mule-configuration>

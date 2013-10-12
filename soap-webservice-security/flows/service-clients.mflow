@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="service-clients">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="samlCallbackHandler" name="id"/>
+            <property value="samlCallbackHandler" name="name"/>
+            <property value="com.mulesoft.mule.example.security.SAMLCallbackHandler" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="SecurityClients" entity-id="dc0895fb-cfbc-4297-a7fd-1df433911af8">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="3" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63080" name="port"/>
+                    <property value="client" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/set-payload" name="Set payload with 'name' query param" entity-id="Set Payload#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="#[message.inboundProperties['http.query.params']['name']]" name="value"/>
+                    <property value="5" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/variable-transformer" name="Set clientType" entity-id="Variable#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="http://www.mulesoft.org/schema/mule/core/set-variable" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="clientType" name="variableName"/>
+                    <property value="#[message.inboundProperties['http.query.params']['clientType']]" name="value"/>
+                    <property value="6" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <splitter index="7" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property-collection name="c59311c8-3af8-47af-bb2a-c2639490cd6f">
+                        <property value="#[clientType == 'usernameTokenEncrypted']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'usernameTokenEncrypted']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="6ef099f6-ad8a-4179-8c2b-b501a2ae8681">
+                        <property value="#[clientType == 'samlTokenSigned']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'samlTokenSigned']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="b9d9cab6-47a3-4708-b4bd-3c5c009d66ec">
+                        <property value="#[clientType == 'samlToken']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'samlToken']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="7c1a437b-4b67-443a-8070-9f5a5924311d">
+                        <property value="#[clientType == 'unsecure']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'unsecure']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="be525abd-95f8-4970-a346-3822eea229b0">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                    <property-collection name="6ee3ef81-2c59-4369-af85-aa703e9ffc1e">
+                        <property value="#[clientType == 'usernameToken']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'usernameToken']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="0ac0938b-d839-4f71-9e5c-b273e73e9d79">
+                        <property value="#[clientType == 'usernameTokenSigned']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[clientType == 'usernameTokenSigned']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="9" hadOnlyOneElement="false" entity-id="7c1a437b-4b67-443a-8070-9f5a5924311d">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke unsecure sub-flow" entity-id="Flow Reference#1">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="unsecure" name="name"/>
+<property value="9" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="11" hadOnlyOneElement="false" entity-id="6ee3ef81-2c59-4369-af85-aa703e9ffc1e">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke usernameToken sub-flow" entity-id="Flow Reference#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="usernameToken" name="name"/>
+<property value="11" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="13" hadOnlyOneElement="false" entity-id="0ac0938b-d839-4f71-9e5c-b273e73e9d79">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke usernameToken Signed sub-flow" entity-id="Flow Reference#3">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="usernameTokenSigned" name="name"/>
+<property value="13" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="15" hadOnlyOneElement="false" entity-id="c59311c8-3af8-47af-bb2a-c2639490cd6f">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke usernameToken Encrypted sub-flow" entity-id="Flow Reference#4">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="usernameTokenEncrypted" name="name"/>
+<property value="15" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="17" hadOnlyOneElement="false" entity-id="b9d9cab6-47a3-4708-b4bd-3c5c009d66ec">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke samlToken sub-flow" entity-id="Flow Reference#5">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="samlToken" name="name"/>
+<property value="17" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="false" index="19" hadOnlyOneElement="false" entity-id="6ef099f6-ad8a-4179-8c2b-b501a2ae8681">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke samlToken Signed sub-flow" entity-id="Flow Reference#6">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="samlTokenSigned" name="name"/>
+<property value="19" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="true" index="21" hadOnlyOneElement="false" entity-id="be525abd-95f8-4970-a346-3822eea229b0">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/set-payload" name="Client type is not supported" entity-id="Set Payload#2">
+                            <graphicalData height="0" width="0" y="0" x="0"/>
+                            <properties>
+<property value="Client type is not supported" name="value"/>
+<property value="21" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/properties-transformer" name="Set response Content-Type" entity-id="Property#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="http://www.mulesoft.org/schema/mule/core/set-property" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="Content-Type" name="propertyName"/>
+                    <property value="text/plain" name="value"/>
+                    <property value="22" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="http://www.mulesoft.org/schema/mule/core/catch-exception-strategy" name="Catch Exception Strategy" entity-id="Catch Exception Strategy#1">
+                <properties>
+                    <property name="labelConfigureConditionalExecutionUsingExpression"/>
+                    <property name="when"/>
+                    <property name="enableNotifications"/>
+                    <property value="23" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#2">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/set-payload" name="Set Payload" entity-id="Set Payload#3">
+                            <properties>
+<property value="There has been an Error processing the request" name="value"/>
+<property value="24" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/properties-transformer" name="Set response Content-Type" entity-id="Property#2">
+                            <properties>
+<property value="http://www.mulesoft.org/schema/mule/core/set-property" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+<property value="Content-Type" name="propertyName"/>
+<property value="text/plain" name="value"/>
+<property value="25" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="unsecure" entity-id="e084b8be-1144-4548-a186-4dc95d7cd390">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="26" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Unsecure SOAP client" entity-id="SOAP#1">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                </properties>
+                <description>Unsecure SOAP client</description>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke unsecure Web Service" entity-id="HTTP#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="28" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/unsecure" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="usernameToken" entity-id="f243ad12-3bbf-4f17-b2fd-9971315ce875">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="29" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="UsernameToken SOAP client" entity-id="SOAP#2">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="30" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;0">
+                        <property value="31" name="auxiliary;wrapIn"/>
+                        <property value="31" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="32" name="auxiliary;wrapIn"/>
+                            <property value="32" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="joe" name="value"/>
+<property value="34" name="auxiliary;wrapIn"/>
+<property value="34" name="auxiliary;index"/>
+<property value="user" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="UsernameToken Timestamp" name="value"/>
+<property value="33" name="auxiliary;wrapIn"/>
+<property value="33" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="35" name="auxiliary;wrapIn"/>
+<property value="35" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke usernameToken Web Service" entity-id="HTTP#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/username" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="usernameTokenSigned" entity-id="a7c90d16-b358-45f5-9663-4cd6a94a3c5b">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="37" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="UsernameToken Signed SOAP client" entity-id="SOAP#3">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="38" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;0">
+                        <property value="39" name="auxiliary;wrapIn"/>
+                        <property value="39" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="40" name="auxiliary;wrapIn"/>
+                            <property value="40" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="wssecurity.properties" name="value"/>
+<property value="42" name="auxiliary;wrapIn"/>
+<property value="42" name="auxiliary;index"/>
+<property value="signaturePropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="UsernameToken Signature Timestamp" name="value"/>
+<property value="41" name="auxiliary;wrapIn"/>
+<property value="41" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="joe" name="value"/>
+<property value="43" name="auxiliary;wrapIn"/>
+<property value="43" name="auxiliary;index"/>
+<property value="user" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;4">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="44" name="auxiliary;wrapIn"/>
+<property value="44" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke usernameToken Signed Web Service" entity-id="HTTP#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="45" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/signed" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="usernameTokenEncrypted" entity-id="04053cf9-1db7-4d22-81ac-4b815cef7a3c">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="46" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="UsernameToken Encrypted SOAP client" entity-id="SOAP#4">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="47" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;0">
+                        <property value="48" name="auxiliary;wrapIn"/>
+                        <property value="48" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="49" name="auxiliary;wrapIn"/>
+                            <property value="49" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="wssecurity.properties" name="value"/>
+<property value="51" name="auxiliary;wrapIn"/>
+<property value="51" name="auxiliary;index"/>
+<property value="encryptionPropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="UsernameToken Timestamp Encrypt" name="value"/>
+<property value="50" name="auxiliary;wrapIn"/>
+<property value="50" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="joe" name="value"/>
+<property value="52" name="auxiliary;wrapIn"/>
+<property value="52" name="auxiliary;index"/>
+<property value="user" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;4">
+<property value="joe" name="value"/>
+<property value="53" name="auxiliary;wrapIn"/>
+<property value="53" name="auxiliary;index"/>
+<property value="encryptionUser" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;5">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="54" name="auxiliary;wrapIn"/>
+<property value="54" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke usernameToken Encrypted Web Service" entity-id="HTTP#5">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/encrypted" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="samlToken" entity-id="9a006575-c298-4de4-8172-0b7e4d4c8251">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="56" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SAMLToken SOAP client" entity-id="SOAP#5">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="57" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;0">
+                        <property value="58" name="auxiliary;wrapIn"/>
+                        <property value="58" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="59" name="auxiliary;wrapIn"/>
+                            <property value="59" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="saml.properties" name="value"/>
+<property value="61" name="auxiliary;wrapIn"/>
+<property value="61" name="auxiliary;index"/>
+<property value="samlPropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="SAMLTokenUnsigned Timestamp" name="value"/>
+<property value="60" name="auxiliary;wrapIn"/>
+<property value="60" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="com.mulesoft.mule.example.security.SAMLCallbackHandler" name="value"/>
+<property value="62" name="auxiliary;wrapIn"/>
+<property value="62" name="auxiliary;index"/>
+<property value="samlCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke SAMLToken Web Service" entity-id="HTTP#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="63" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/saml" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="samlTokenSigned" entity-id="310c5fb7-7ef5-4fde-bb99-078772f2d4a0">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="64" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#8">
+            <graphicalData height="0" width="0" y="0" x="0"/>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SAMLToken Signed SOAP client" entity-id="SOAP#6">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="65" name="auxiliary;index"/>
+                    <property value="greet" name="operation"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property name="clientClass"/>
+                    <property name="port"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;0">
+                        <property value="66" name="auxiliary;wrapIn"/>
+                        <property value="66" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="67" name="auxiliary;wrapIn"/>
+                            <property value="67" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="saml.properties" name="value"/>
+<property value="69" name="auxiliary;wrapIn"/>
+<property value="69" name="auxiliary;index"/>
+<property value="samlPropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="SAMLTokenSigned" name="value"/>
+<property value="68" name="auxiliary;wrapIn"/>
+<property value="68" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="DirectReference" name="value"/>
+<property value="70" name="auxiliary;wrapIn"/>
+<property value="70" name="auxiliary;index"/>
+<property value="signatureKeyIdentifier" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;4">
+<property value="joe" name="value"/>
+<property value="71" name="auxiliary;wrapIn"/>
+<property value="71" name="auxiliary;index"/>
+<property value="user" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;5">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="72" name="auxiliary;wrapIn"/>
+<property value="72" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;6">
+<property value="com.mulesoft.mule.example.security.SAMLCallbackHandler" name="value"/>
+<property value="73" name="auxiliary;wrapIn"/>
+<property value="73" name="auxiliary;index"/>
+<property value="samlCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="RequestResponse" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="Invoke SAMLToken Signed Web Service" entity-id="HTTP#7">
+                <graphicalData height="0" width="0" y="0" x="0"/>
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="63081" name="port"/>
+                    <property value="services/signedsaml" name="path"/>
+                    <property name="method"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+</mule-configuration>

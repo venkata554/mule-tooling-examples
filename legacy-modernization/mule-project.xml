@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="">
+<mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.5.0.ee">
     <name>legacy-modernization</name>
     <description>Connects a a new HTTP order acceptance service to a legacy FTP fullfillment system.</description>
+    <muleExtension name="Salesforce" qualifier="org.mule.tooling.ui.contribution.sfdc"/>
 </mule-project>

@@ -1,0 +1,785 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="mule-config">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="Bean" name="id"/>
+            <property value="samlCustomValidator" name="name"/>
+            <property value="com.mulesoft.mule.example.security.SAMLCustomValidator" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="UnsecureServiceFlow" entity-id="07550a6d-ea5d-4960-a3cc-b82990700ab0">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="3" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="3" name="auxiliary;index"/>
+            <property value="3" name="auxiliary;index"/>
+            <property value="3" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#1">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/unsecure" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Unsecure service" entity-id="SOAP#1">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#1">
+                <properties>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="UsernameTokenServiceFlow" entity-id="c8d077d1-a8cb-4772-b88c-e69b3b4a6f26">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="7" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="7" name="auxiliary;index"/>
+            <property value="7" name="auxiliary;index"/>
+            <property value="7" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#2">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/username" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                    <property value="8" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Secure UsernameToken service" entity-id="SOAP#2">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property value="9" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-full;0">
+                        <property value="10" name="auxiliary;wrapIn"/>
+                        <property value="10" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="11" name="auxiliary;wrapIn"/>
+                            <property value="11" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="13" name="auxiliary;wrapIn"/>
+<property value="13" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="12" name="auxiliary;wrapIn"/>
+<property value="12" name="auxiliary;index"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#2">
+                <properties>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                    <property value="14" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="UsernameTokenSignedServiceFlow" entity-id="3908aaa8-6dec-44f5-b4dc-e857bdaa423a">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="15" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#3">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/signed" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                    <property value="16" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Secure UsernameToken Signed service" entity-id="SOAP#3">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-full;0">
+                        <property value="18" name="auxiliary;wrapIn"/>
+                        <property value="18" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="19" name="auxiliary;wrapIn"/>
+                            <property value="19" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="wssecurity.properties" name="value"/>
+<property value="21" name="auxiliary;wrapIn"/>
+<property value="21" name="auxiliary;index"/>
+<property value="signaturePropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="UsernameToken Signature Timestamp" name="value"/>
+<property value="20" name="auxiliary;wrapIn"/>
+<property value="20" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="22" name="auxiliary;wrapIn"/>
+<property value="22" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#3">
+                <properties>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="UsernameTokenEncryptedServiceFlow" entity-id="969623b7-22dc-4edd-b4f5-4f54a3025fbc">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="24" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+            <property value="24" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#4">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/encrypted" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                    <property value="25" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Secure UsernameToken Encrypted service" entity-id="SOAP#4">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-full;0">
+                        <property value="27" name="auxiliary;wrapIn"/>
+                        <property value="27" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="28" name="auxiliary;wrapIn"/>
+                            <property value="28" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="wssecurity.properties" name="value"/>
+<property value="30" name="auxiliary;wrapIn"/>
+<property value="30" name="auxiliary;index"/>
+<property value="decryptionPropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="UsernameToken Timestamp Encrypt" name="value"/>
+<property value="29" name="auxiliary;wrapIn"/>
+<property value="29" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;3">
+<property value="com.mulesoft.mule.example.security.PasswordCallback" name="value"/>
+<property value="31" name="auxiliary;wrapIn"/>
+<property value="31" name="auxiliary;index"/>
+<property value="passwordCallbackClass" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#4">
+                <properties>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                    <property value="32" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="SamlTokenServiceFlow" entity-id="2f0745c7-e1a6-49c9-b55f-97aa2a364ab1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="33" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
+            <property value="33" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#5">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/saml" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Secure SAMLToken service" entity-id="SOAP#5">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property value="35" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-full;0">
+                        <property value="36" name="auxiliary;wrapIn"/>
+                        <property value="36" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="37" name="auxiliary;wrapIn"/>
+                            <property value="37" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="SAMLTokenUnsigned Timestamp" name="value"/>
+<property value="38" name="auxiliary;wrapIn"/>
+<property value="38" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-custom-validator;1">
+                            <property value="39" name="auxiliary;wrapIn"/>
+                            <property value="39" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/saml2-token-validator;1">
+<property value="samlCustomValidator" name="ref"/>
+<property value="40" name="auxiliary;wrapIn"/>
+<property value="40" name="auxiliary;index"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#5">
+                <properties>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                    <property value="41" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="SignedSamlTokenServiceFlow" entity-id="d592d3b1-6a33-41cc-a49b-b07765208e50">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="42" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="42" name="auxiliary;index"/>
+            <property value="42" name="auxiliary;index"/>
+            <property value="42" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP Inbound Endpoint" entity-id="HTTP#6">
+                <properties>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property name="host"/>
+                    <property name="port"/>
+                    <property name="path"/>
+                    <property name="method"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="http://localhost:63081/services/signedsaml" name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                    <property value="43" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Secure SAMLToken Signed service" entity-id="SOAP#6">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property name="port"/>
+                    <property name="namespace"/>
+                    <property name="service"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.mule.example.security.Greeter" name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property name="wsdlLocation"/>
+                    <property name="mtomEnabled"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property name="soapVersion"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property value="44" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-full;0">
+                        <property value="45" name="auxiliary;wrapIn"/>
+                        <property value="45" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1">
+                            <property value="46" name="auxiliary;wrapIn"/>
+                            <property value="46" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;2">
+<property value="wssecurity.properties" name="value"/>
+<property value="48" name="auxiliary;wrapIn"/>
+<property value="48" name="auxiliary;index"/>
+<property value="signaturePropFile" name="key"/>
+                            </property-collection>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/property;1">
+<property value="SAMLTokenUnsigned Signature" name="value"/>
+<property value="47" name="auxiliary;wrapIn"/>
+<property value="47" name="auxiliary;index"/>
+<property value="action" name="key"/>
+                            </property-collection>
+                        </property-collection>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-custom-validator;1">
+                            <property value="49" name="auxiliary;wrapIn"/>
+                            <property value="49" name="auxiliary;index"/>
+                            <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/saml2-token-validator;1">
+<property value="samlCustomValidator" name="ref"/>
+<property value="50" name="auxiliary;wrapIn"/>
+<property value="50" name="auxiliary;index"/>
+                            </property-collection>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Greeter Service" entity-id="Java#6">
+                <properties>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="com.mulesoft.mule.example.security.GreeterService" name="class"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+</mule-configuration>
